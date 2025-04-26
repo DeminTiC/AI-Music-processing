@@ -1,13 +1,13 @@
 import numpy as np
 import tensorflow as tf
-from tensorflow.keras.layers import (Embedding, LSTM, Dense, Bidirectional,
+from tensorflow.keras.layers import (Embedding, LSTM, Dense, Bidirectional, # type: ignore
                                      LayerNormalization, Dropout, Attention,
                                      Conv1D, Input, Concatenate)
-from tensorflow.keras.models import Model
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import (EarlyStopping, ModelCheckpoint,
+from tensorflow.keras.models import Model # type: ignore
+from tensorflow.keras.optimizers import Adam # type: ignore
+from tensorflow.keras.callbacks import (EarlyStopping, ModelCheckpoint, # type: ignore
                                         ReduceLROnPlateau, Callback)
-from tensorflow.keras import backend as K
+from tensorflow.keras import backend as K # type: ignore
 import music21
 from collections import defaultdict
 import pickle
@@ -226,8 +226,8 @@ class EnhancedHybridMusicModel:
         combined = Dropout(0.3)(combined)
 
         # 修正后的注意力层
-        query = Dense(256)(combined)  # 关键修改：输出维度与combined一致
-        attention = Attention()([query, combined])  # 现在维度匹配
+        query = Dense(256)(combined)
+        attention = Attention()([query, combined])
 
         # 输出层
         pitch_output = Dense(self.vocab_size,
@@ -306,7 +306,7 @@ class EnhancedHybridMusicModel:
             float(self.preprocessor.int_to_note[idx].split('_')[1][1:])
             for idx in y
         ])
-    # ====================== 改进版音乐生成器 ======================
+    # ====================== 音乐生成器 ======================
 
 
 class EnhancedMusicGenerator:
@@ -339,7 +339,7 @@ class EnhancedMusicGenerator:
         return rhythm_features
 
     def generate(self, seed_sequence=None, length=500, temperature=0.7):
-        """改进的音乐生成方法"""
+        """音乐生成方法"""
         if temperature < 0.1 or temperature > 1.5:
             temperature = 0.7
 
@@ -446,7 +446,7 @@ class MusicGenerationCallback(Callback):
 
 
 def save_to_midi(note_sequence, output_path):
-    """改进的MIDI保存方法"""
+    """MIDI保存方法"""
     try:
         stream = music21.stream.Stream()
 
@@ -487,7 +487,7 @@ def save_to_midi(note_sequence, output_path):
 
 
 if __name__ == "__main__":
-    print("=== AI音乐生成系统启动 ===")
+    print("========Starting...========")
 
     # 参数解析
     parser = argparse.ArgumentParser()
